@@ -6,29 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    app:layout_behavior="@string/bottom_sheet_behavior"
     tools:context="com.ite17.pikulkaew.teamdr.ocrproject.MainActivity">
+
+    <include layout="@layout/include_bottom_sheet"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_margin="8dp"
-            android:background="#ff0000">
-
-        </android.support.v7.widget.Toolbar>
-
-
-    </LinearLayout>
 
     ////////////////////////
     <!--

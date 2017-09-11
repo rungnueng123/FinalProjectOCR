@@ -4,12 +4,15 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,15 +29,14 @@ import com.ite17.pikulkaew.teamdr.ocrproject.R;
 
 public class DashboardActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    ImageView title_search_dashboard;
-    ImageView more_search_dashboard;
-    EditText edit_search_dashboard;
+    private static final String TAG = DashboardActivity.class.getSimpleName();
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     Toolbar toolbar;
     SearchManager searchManager;
     MenuItem searchMenuItem;
     SearchView searchView;
+    View bottomSheet;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +71,21 @@ public class DashboardActivity extends AppCompatActivity implements SearchView.O
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        bottomSheet = findViewById(R.id.design_bottom_sheet);
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                Log.d(TAG, "onSlide: " + slideOffset);
+            }
+
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                Log.d(TAG, "onStateChanged: " + newState);
+            }
+        });
+
     }
 
     @Override
@@ -97,7 +114,7 @@ public class DashboardActivity extends AppCompatActivity implements SearchView.O
 
         searchManager = (SearchManager)
                 getSystemService(Context.SEARCH_SERVICE);
-        searchMenuItem = menu.findItem(R.id.search);
+        searchMenuItem = menu.findItem(R.id.search_food);
         searchView = (SearchView) searchMenuItem.getActionView();
 
         searchView.setSearchableInfo(searchManager.
@@ -105,7 +122,7 @@ public class DashboardActivity extends AppCompatActivity implements SearchView.O
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
 
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
