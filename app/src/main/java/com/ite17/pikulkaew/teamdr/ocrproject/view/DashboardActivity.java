@@ -1,12 +1,17 @@
 package com.ite17.pikulkaew.teamdr.ocrproject.view;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -19,7 +24,7 @@ import com.ite17.pikulkaew.teamdr.ocrproject.R;
  * Created by RUNGNUENG on 11/9/2560.
  */
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     ImageView title_search_dashboard;
     ImageView more_search_dashboard;
@@ -27,6 +32,9 @@ public class DashboardActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
     Toolbar toolbar;
+    SearchManager searchManager;
+    MenuItem searchMenuItem;
+    SearchView searchView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,5 +88,33 @@ public class DashboardActivity extends AppCompatActivity {
         if (actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_menu, menu);
+
+        searchManager = (SearchManager)
+                getSystemService(Context.SEARCH_SERVICE);
+        searchMenuItem = menu.findItem(R.id.search);
+        searchView = (SearchView) searchMenuItem.getActionView();
+
+        searchView.setSearchableInfo(searchManager.
+                getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }
