@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    app:layout_behavior="@string/bottom_sheet_behavior"
     tools:context="com.ite17.pikulkaew.teamdr.ocrproject.MainActivity">
 
     <include layout="@layout/include_bottom_sheet"/>
